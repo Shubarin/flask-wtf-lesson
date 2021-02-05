@@ -24,6 +24,23 @@ def training(prof):
     return render_template('training.html', **context)
 
 
+@app.route('/list_prof/<list_type>')
+def list_prof(list_type):
+    proffessions = [
+        'инженер-исследователь', 'пилот', 'строитель',
+        'экзобиолог', 'врач', 'инженер по терраформированию',
+        'климатолог', 'специалист по радиационной защите', 'астрогеолог',
+        'гляциолог', 'инженер жизнеобеспечения', 'метеоролог',
+        'оператор марсохода', 'киберинженер', 'штурман', 'пилот дронов'
+    ]
+    context = {
+        'proffessions': proffessions,
+        'list_type': list_type,
+        'title': 'Список профессий'
+    }
+    return render_template('proffessions.html', **context)
+
+
 if __name__ == '__main__':
     app.debug = True
     app.run(port=8080, host='localhost')
