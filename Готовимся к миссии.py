@@ -41,6 +41,25 @@ def list_prof(list_type):
     return render_template('proffessions.html', **context)
 
 
+@app.route('/answer')
+@app.route('/auto_answer')
+def answer():
+    fields = {
+        'Фамилия': 'Вини',
+        'Имя': 'Пух',
+        'Образования': 'среднее',
+        'Профессия': 'медведь',
+        'Пол': 'мужской',
+        'Мотивация': 'Марсианский мёд',
+        'Готов остаться на Марсе': 'да'
+    }
+    context = {
+        'title': 'Анкета',
+        'fields': fields
+    }
+    return render_template('auto_answer.html', **context)
+
+
 if __name__ == '__main__':
     app.debug = True
     app.run(port=8080, host='localhost')
