@@ -12,7 +12,10 @@
 <body>
 <main>
     {% include 'includes/nav.html' %}
+    <div class="container">
     <h4>И на Марсе будут яблони цвести!</h4>
+    {% block content %}{% endblock %}
+    </div>
 </main>
 {% include 'includes/footer.html' %}
 </body>
