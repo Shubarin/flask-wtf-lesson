@@ -83,6 +83,22 @@ def distribution(team=('Ридли Скотт', 'Энди Уир',
     }
     return render_template('distribution.html', **context)
 
+
+@app.route('/table')
+def table(sex='female', age=21):
+    child = '../static/img/child.png'
+    adult = '../static/img/adult.png'
+    if sex == 'male' and age < 21:
+        color, photo = '#AAAAFF', child
+    elif sex == 'male' and age >= 21:
+        color, photo = '#0000FF', adult
+    elif sex == 'female' and age < 21:
+        color, photo = '#FFAAAA', child
+    else:
+        color, photo = '#FF0000', adult
+    context = {'color': color, 'photo': photo}
+    return render_template('table.html', **context)
+
 if __name__ == '__main__':
     app.debug = True
     app.run(port=8080, host='localhost')
