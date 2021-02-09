@@ -1,7 +1,11 @@
-from flask import Flask, render_template
+import os
+from io import BytesIO
+
+from PIL import Image
+from flask import Flask, render_template, request
 from werkzeug.utils import redirect
 
-from forms import LoginForm
+from forms import LoginForm, UploadForm
 from settings import SECRET_KEY
 
 app = Flask(__name__)
@@ -98,6 +102,22 @@ def table(sex='female', age=21):
         color, photo = '#FF0000', adult
     context = {'color': color, 'photo': photo}
     return render_template('table.html', **context)
+
+
+@app.route('/gallery', methods=['GET', 'POST'])
+def gallery():
+    form = UploadForm()
+    images = os.listdir('static/img')
+    context = {
+        'images': images,
+        'form': form
+    }
+    if form.validate_on_submit():
+        img = Image.open(BytesIO(request.files.get('image').read()))
+        filename = request.files.get('image').filename
+        img.save(f'static/img/{filename}')
+        return redirect('/gallery')
+    return render_template('gallery.html', **context)
 
 if __name__ == '__main__':
     app.debug = True

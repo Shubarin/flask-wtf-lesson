@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, FileField
 from wtforms.validators import DataRequired
 
 
@@ -11,3 +11,8 @@ class LoginForm(FlaskForm):
     password_captain = PasswordField('Пароль капитана',
                                      validators=[DataRequired()])
     submit = SubmitField('Доступ')
+
+
+class UploadForm(FlaskForm):
+    image = FileField('изображение', validators=[DataRequired()])
+    submit = SubmitField('Загрузить')
