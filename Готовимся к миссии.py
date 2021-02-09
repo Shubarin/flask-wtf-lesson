@@ -1,5 +1,7 @@
+import json
 import os
 from io import BytesIO
+from random import choice
 
 from PIL import Image
 from flask import Flask, render_template, request
@@ -118,6 +120,14 @@ def gallery():
         img.save(f'static/img/{filename}')
         return redirect('/gallery')
     return render_template('gallery.html', **context)
+
+
+@app.route('/member')
+def member():
+    with open('templates/teams.json', 'r') as team_file:
+        members = json.load(team_file).get('teams')
+    return render_template('member.html', members=members)
+
 
 if __name__ == '__main__':
     app.debug = True
